@@ -3,8 +3,8 @@ spring:
     name: board # 앱 이름
   security: # ID, PW
     user:
-      name: myboard
-      password: Koreatech2024!@
+      name: u
+      password: u
   main:
     allow-bean-definition-overriding: false # bean설정 중복허용 여부 true를 하면 마지막 중복된 bean이 최종적으로 덮어져서 사용됨
   #개발툴 옵션 관리
@@ -26,14 +26,7 @@ spring:
     show-sql: false #true는 Log에 sql내역 디버깅
     hibernate:
       # DDL (Data Definition Language) 설정
-      ddl-auto: update # 데이터베이스 스키마를 자동으로 관리하는 방법을 지정합니다.
-      # DDL 옵션 설명:
-      # - none: 아무 작업도 수행하지 않습니다. 운영 환경에 적합합니다.
-      # - create-only: 애플리케이션 시작 시 테이블을 생성합니다. 이미 테이블이 존재하면 아무 작업도 수행하지 않습니다.
-      # - create: 애플리케이션 시작 시 테이블을 생성합니다. 기존 테이블이 있다면 삭제 후 다시 생성합니다.
-      # - create-drop: 애플리케이션 시작 시 테이블을 생성하고, 종료 시 테이블을 삭제합니다. 테스트 환경에 유용합니다.
-      # - validate: 엔티티와 데이터베이스 테이블의 매핑을 검증합니다. 일치하지 않으면 애플리케이션이 실행되지 않습니다.
-      # - update: 기존 테이블을 기준으로 컬럼을 추가하거나 수정합니다. 삭제된 컬럼은 자동으로 제거되지 않습니다.
+      ddl-auto: update
     properties:
       hibernate:
         format_sql: true # SQL 쿼리를 포맷팅하여 보기 쉽게 만듭니다.
@@ -43,9 +36,9 @@ spring:
     database-platform: org.hibernate.dialect.MySQLDialect
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://${common.local-ip}:3309/board_db
-    username: board
-    password: koreatech
+    url: jdbc:mariadb://${common.local-ip}:3306/board_db
+    username: uuuuuuu
+    password: uuuuuuu
   # h2:
   #  console:
   #    enabled: true
@@ -58,6 +51,5 @@ spring:
       maxFileSize: 10MB
       maxRequestSize: 20MB
 
-#공통되는 URL 처리
 common:
   local-ip: localhost
