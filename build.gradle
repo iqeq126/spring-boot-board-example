@@ -1,0 +1,75 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.3.2-SNAPSHOT'
+	id 'io.spring.dependency-management' version '1.1.6'
+}
+
+group = 'trento.systems'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = "17"
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+	maven { url 'https://repo.spring.io/snapshot' }
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator' //액츄에이터 metric 수집
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6' //타임리프 및 스프링 시큐리티
+	implementation group: 'nz.net.ultraq.thymeleaf', name: 'thymeleaf-layout-dialect', version: '3.1.0'
+	implementation group: 'org.snmp4j', name: 'snmp4j', version: '3.6.4' //snmp통신을 위한
+	implementation 'com.jcraft:jsch:0.1.55' //ssh툴 jcsh
+	implementation 'com.google.code.gson:gson:2.9.0' //gson
+	//implementation group: 'com.vladmihalcea', name: 'hibernate-types-52', version: '2.20.0'
+	implementation 'com.vladmihalcea:hibernate-types-60:2.20.0' // Hibernate 6.x용
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	implementation 'com.querydsl:querydsl-jpa:5.0.0' // QueryDSL JPA
+	implementation 'com.querydsl:querydsl-apt:5.0.0:jpa' // QueryDSL APT
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2' // Swagger
+	implementation 'commons-io:commons-io:2.16.0'	// file upload
+	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+	annotationProcessor 'org.projectlombok:lombok'
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
+
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+	compileOnly 'org.projectlombok:lombok'
+	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+	runtimeOnly 'com.h2database:h2'
+	runtimeOnly 'io.micrometer:micrometer-registry-prometheus' //마이크로미터 구현체 (json > 프로메테우스언어 변환)
+	//runtime("org.springframework.boot:spring-boot-properties-migrator")
+
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+bootRun {
+	String activeProfile = System.properties['spring.profiles.active']
+	systemProperty "spring.profiles.active", activeProfile
+}
+targetCompatibility = JavaVersion.VERSION_17

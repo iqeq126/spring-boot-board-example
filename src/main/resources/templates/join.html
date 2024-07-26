@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link th:href="@{https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap}" rel="stylesheet">
+    <script type="text/javascript" th:src="@{https://kit.fontawesome.com/53a8c415f1.js}" crossorigin="anonymous"></script> <!-- sns 아이콘 사용을 위함 -->
+    <script type="text/javascript" th:src="@{http://code.jquery.com/jquery-latest.min.js}"></script>    <!-- 최신버전 jquery를 사용하기 위함  -->
+    <script type="text/javascript" th:src="@{https://cdn.jsdelivr.net/npm/sweetalert2@10}"></script> <!-- alert 창을 예쁘게 바꾸기 위함 -->
+    <script type="text/javascript" th:src="@{/js/join.js}"></script>
+    <!--
+    <script>
+        let num;
+        // 비밀번호 검증
+        function isSame() {
+            let pw = document.getElementById("password").value;
+            let confirmPW= document.getElementById("password2").value;
+            if (pw == confirmPW){
+                document.getElementById("password").style.borderColor = 'blue';
+                document.getElementById("password2").style.borderColor = 'blue';
+            }
+            if (pw.length < 8 || pw.length > 20) {
+                document.getElementById("password").style.borderColor = 'red';
+                document.getElementById("password2").style.borderColor = 'red';
+                alert('비밀번호는 8글자 이상, 20글자 이하만 이용 가능합니다.');
+                document.getElementById('password').value=document.getElementById('password2').value='';
+            }
+            if(document.getElementById('password').value!='' && document.getElementById('password2').value!='') {
+                if(document.getElementById('password').value != document.getElementById('password2').value) {
+                    document.getElementById("password").style.borderColor = 'red';
+                    document.getElementById("password2").style.borderColor = 'red';
+                    alert('비밀번호가 일치하지 않습니다.');
+                    document.getElementById('password2').value='';
+                }
+            }
+
+        }
+        // 입력창 색깔 지정
+        function placeholderColor() {
+            let cid = document.getElementById('Certification');
+            let cer = document.getElementById('Certification').value;
+            let cer_length = document.getElementById('Certification').length;
+            if (cer_length === 0){
+                cid.style.borderColor = 'lightgray';
+            }
+            else if (cer === num){
+                cid.style.borderColor = 'blue';
+            }
+            else{
+                cid.style.borderColor = 'red';
+            }
+        }
+        // 검증 및 인증번호 보내기 및 남은 시간 알리미
+        /*
+        function certify(){
+            num =Math.floor(Math.random() * (999999 - 100000)) + 100000;
+            alert( '인증번호는 ' + num + '입니다.');
+            let timeleft = 20;
+            let downloadTimer = setInterval(function(){
+                if(timeleft <= 0){
+                    alert('다시 입력해주세요.')
+                    clearInterval(downloadTimer);
+                }
+                document.getElementById('cer').innerHTML = 'Certification 남은 시간 :' + (timeleft) + '초';
+                timeleft -= 1;
+            }, 1000);*/
+        }
+    </script>
+    -->
+    <link th:href="@{/css/login.css}" rel="stylesheet" />
+</head>
+<body class="fade">
+<video th:id="loginVideo" th:src="@{video/login.mp4}" controls="controls" muted autoplay="autoplay"></video>
+<div class="wrap">
+        <div class="login">
+            <h2>Join</h2>
+            <form th:action="@{/user}" name="idForm" method="post">
+            <!-- 토큰을 추가하여 CSRF 공격 방지 -->
+            <input type="hidden" th:name="${_csrf?.parameterName}" th:value="${_csrf?.token}" />
+            <div id="login_id" name="login_id" class="login_id">
+                <h4>id</h4>
+                <input type="id" id="username" name="username" placeholder="6 and less than 20.">
+            </div>
+            <div id="login_email" class="login_id">
+                <h4>email</h4>
+                    <input type="email" id="email" name="email" placeholder="ex) ~~~~@gmail.com">
+            </div>
+            <div name="pwForm" class="login_pw">
+                <h4>Password</h4>
+                    <input type="password" id="password_origin" name="password" placeholder="********">
+            </div>
+                <!--
+            <div name="pwForm_copy" class="login_pw">
+                <h4>Password Confirm</h4>
+                    <input type="password" id="password_copy" placeholder="********">
+            </div>-->
+
+            <div class = "join_submit">
+                <input id="JoinAlert" type="submit" value="submit">
+            </div>
+            </form>
+            <div class="login_etc">
+                <div class="login_Join">
+                    <a href="login">login</a>
+                </div>
+                <div class="inquiry">
+                    <a href="inquiry">Inquary</a>
+                </div>
+            </div>
+        </div>
+</div>
+</body>
+</html>

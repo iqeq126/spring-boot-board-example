@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<th:block th:replace="/layout/fragment/header :: headerLayout"></th:block>
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-lg-8">
+      <article>
+        <input type="hidden" id="article-id" th:value="${article.id}">
+        <input type="hidden" id="writer" th:value="${#authentication.name}">
+        <header class="mb-4">
+          <input type="text" class="form-control" placeholder="제목" id="title" name="title" th:value="${article.title}">
+        </header>
+        <section class="mb-5">
+          <textarea class="form-control h-25" rows="10" placeholder="내용" id="content" name="content" th:text="${article.content}"></textarea>
+        </section>
+        <section class="mb-5">
+          <input type="file" class="form-control" id="file" name="file">
+        </section>
+        <button th:if="${article.id} != null" type="button" id="modify-btn" class="btn btn-primary btn-sm">수정</button>
+        <button th:if="${article.id} == null" type="button" id="create-btn" class="btn btn-primary btn-sm">등록</button>
+      </article>
+    </div>
+  </div>
+</div>
+<div class="container mt-5"
+  th:if="${( article.id != null) && ( article.writer != #authentication.name) }">
+  <script>
+    window.alert("접근 권한이 없습니다.");
+    location.replace("/articles");
+  </script>
+</div>
+<script src="/js/article.js"></script>
+</body>
+</html>

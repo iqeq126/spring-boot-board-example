@@ -1,0 +1,18 @@
+#drop-area {
+    border: 2px dashed #ccc;
+    width: 300px;
+    height: 200px;
+    text-align: center;
+    padding: 10px;
+    margin: 10px auto;
+    transition: background-color 0.3s ease-in-out;
+}
+#drop-area:hover {
+    background-color: #eee;
+}
+#image-preview {
+    margin: 10px auto;
+    max-width: 100%;
+    max-height: 200px;
+    display: none;
+}

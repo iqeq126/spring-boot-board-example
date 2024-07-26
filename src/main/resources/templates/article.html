@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<th:block th:replace="/layout/fragment/header :: headerLayout"></th:block>
+<script type="text/javascript" th:src="@{/js/dragAndDrop.js}"></script>
+<script type="text/javascript" th:src="@{/js/comment.js}"></script>
+  <link th:href="@{/css/dragAndDrop.css}" rel="stylesheet" />
+<body>
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-lg-8">
+        <article>
+          <input type="hidden" id="article-id" th:value="${article.id}">
+          <input type="hidden" id="writer" th:value="${article.writer}">
+          <div th:text="|조회수 : ${article.countView}|" class="d-flex justify-content-end fw-bold"></div>
+          <header class="mb-4">
+            <h1 class="fw-bolder mb-1" th:text="${article.title}"></h1>
+            <div class="text-m  uted fst-italic mb-2" th:text="|Posted on ${#temporals.format(article.createdAt, 'yyyy-MM-dd HH:mm')}|"></div>
+          </header>
+          <section class="mb-5">
+            <p class="fs-5 mb-4" th:text="${article.content}"></p>
+          </section>
+          <!--
+          <div class="container">
+            <div id="drop-area">
+              <p>이미지를 드래그 앤 드롭 하거나 클릭하여 업로드하세요.</p>
+              <input type="file" id="file-input" accept="image/*" style="display: none;">
+            </div>
+            <img id="image-preview" src="" alt="업로드된 이미지">
+          </div>
+          -->
+          <!-- 수정 삭제는 작성자에게만 보이도록 설정 -->
+            <button type="button" id="modify-btn"
+                    th:if="${article.writer == #authentication.name}"
+                    th:onclick="|location.href='@{/new-article?id={articleId}(articleId=${article.id})}'|"
+                    class="btn btn-primary btn-sm">수정</button>
+            <button type="button" id="delete-btn"
+                    th:if="${article.writer == #authentication.name}"
+                    class="btn btn-secondary btn-sm">삭제</button>
+          <button type="button" id="index-btn"
+                  th:onclick="|location.href='@{/articles}'|"
+                  class="btn btn-secondary btn-sm">목록</button>
+        </article>
+
+        <!-- Comments Form -->
+        <div class="card my-4">
+          <h5 class="card-header">Leave a Comment:</h5>
+          <div class="card-body">
+           <form th:action="@{/articles/{id}/comment(id=${id}, writer=${#authentication.name})}" th:method="post">
+              <div class="form-group" style="margin-bottom: 10px;">
+                <input type="hidden" name="idx" th:value="*{id}" />
+                <input type="hidden" name="comment_writer" th:value="${#authentication.name}">
+                <textarea name="content" class="form-control" rows="3"></textarea>
+              </div>
+              <button type="submit"  id="comment-btn" class="btn btn-primary">
+                      <!-- th:action="@{/articles/{id}/comment(id=${id})}" -->
+             Submit</button>
+            </form>
+          </div>
+        </div>
+        <!-- Display Comments -->
+        <div class="card my-4" th:if="${comments.size()} > 0">
+          <h5 class="card-header">Comments:</h5>
+          <div class="card-body">
+            <div th:each="comment : ${comments}">
+              <div class="media mb-4">
+                <div class="media-body">
+                  <h5 class="mt-0" th:text="${comment.commentWriter}">User Name</h5>
+                  <p th:text="${comment.content}" th:id="'comment-' + ${comment.id}">Comment content</p>
+                  <small class="text-muted" th:text="${#temporals.format(comment.createdAt, 'yyyy-MM-dd HH:mm')}">Comment Date</small>
+                  <div th:if="${comment.commentWriter == #authentication.name}">
+                  <button class="btn btn-sm btn-outline-warning" th:attr="data-id=${comment.getId()}" onclick="editComment(this)">Edit</button>
+                    <a th:href="@{/articles/{id}/comment/{commentId}/remove(id=${id}, commentId=${article.getId()})}" class="btn btn-sm btn-outline-danger" onclick="return confirm('Delete this comment?')">Delete</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <script th:inline="javascript">
+          /*<![CDATA[*/
+          const id = [[${id}]];
+          /*]]>*/
+        </script>
+
+
+      </div>
+    </div>
+  </div>
+
+
+  <script src="/js/article.js"></script>
+</body>

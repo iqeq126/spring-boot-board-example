@@ -1,0 +1,95 @@
+/* 폰트 시작 */
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+
+html {
+    font-family: 'Ubuntu', sans-serif;
+}
+/* 폰트 끝 */
+
+/* 노멀라이즈 시작 */
+body, ul, li {
+    margin: 0;
+    padding: 0;
+    list-style: none;		/* 해당 태그의 list-style을 none으로 하는 것으로 ●을 제거한다 */
+}
+
+body {
+    background-color: #bababa;
+}
+
+a {
+    color: inherit;		/* 부모 엘리먼트의 값을 물려받는다 */
+    text-decoration: none;	/* 해당 태그의 text-decoration을 none으로 하는 것으로 밑줄을 제거한다 */
+}
+/* 노멀라이즈 끝 */
+
+/* 라이브러리 시작 */
+.con {
+    margin-left: auto;
+    margin-right: auto;
+}
+/* 라이브러리 끝 */
+
+/* 커스텀 시작 */
+:root {
+    --site-width: 1200px;
+}
+
+.con-min-width {
+    min-width: var(--site-width);
+}
+
+.top-bar > .con {
+    width: var(--site-width);
+}
+
+/* 드롭다운 메뉴 시작 */
+.top-bar__menu-box-1 > ul ul {
+    display: none;
+}
+
+.top-bar__menu-box-1 > ul > li {
+    display: inline-block;
+}
+
+.top-bar__menu-box-1 {
+    text-align: center;
+    margin-top: 100px;
+}
+
+.top-bar__menu-box-1 ul {
+    background-color: black;
+    color: white;
+}
+
+.top-bar__menu-box-1 ul > li > a {
+    display: block;
+    font-size: 3rem;
+    padding: 10px 50px;
+}
+
+.top-bar__menu-box-1 ul > li:hover > a {
+    background-color: #555;
+}
+
+.top-bar__menu-box-1 > ul > li {
+    position: relative;
+}
+
+.top-bar__menu-box-1 > ul > li > ul {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+}
+
+.top-bar__menu-box-1 > ul > li:hover > ul {
+    display: block;
+}
+
+.top-bar__menu-box-1 > ul {
+    border-radius: 20px;
+}
+/* 드롭다운 메뉴 끝 */
+
+/* 커스텀 끝 */

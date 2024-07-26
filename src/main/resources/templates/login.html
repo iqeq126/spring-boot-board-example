@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link th:href="@{https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap}" rel="stylesheet">
+    <script type="text/javascript" th:src="@{https://kit.fontawesome.com/53a8c415f1.js}" crossorigin="anonymous"></script> <!-- sns 아이콘 사용을 위함 -->
+    <script type="text/javascript" th:src="@{http://code.jquery.com/jquery-latest.min.js}"></script>    <!-- 최신버전 jquery를 사용하기 위함  -->
+    <script type="text/javascript" th:src="@{https://cdn.jsdelivr.net/npm/sweetalert2@10}"></script> <!-- alert 창을 예쁘게 바꾸기 위함 -->
+    <script type="text/javascript" th:src="@{/js/login.js}"></script>
+    <link th:href="@{/css/login.css}" rel="stylesheet" />
+</head>
+<body class="fade">
+<video th:id="loginVideo"th:src="@{/video/login.mp4}"  controls="controls"  muted autoplay="autoplay"></video>
+<div class="wrap">
+    <div class="login">
+        <h2>Log-in</h2>
+        <div class="login_sns">
+            <li><a href="https://github.com"><i class="fab fa-github"></i></a></li>
+            <li><a href="https://instagram.com"><i class="fab fa-instagram"></i></a></li>
+            <li><a href="https://google.kr"><i class="fab fa-google"></i></a></li>
+        </div>
+        <form name="idForm" action="/login" method="post">
+        <input type="hidden" th:name="${_csrf?.parameterName}" th:value="${_csrf?.token}" />
+            <div id="login_id" name = "login_id" class="login_id">
+                <h4>id</h4>
+                <input type="id" id="username" name="username" placeholder="6 and less than 20.">
+        </div>
+        <div id="login_pw" name="login_pw" class="login_pw">
+            <h4>Password</h4>
+                <input type="password" id="password" name="password" placeholder="********">
+        </div>
+        <div class = "login_submit">
+            <input id="loginAlert" type="submit" value="submit">
+        </div>
+        </form>
+        <div class="login_etc">
+            <div class="login_Join">
+                <a href="join" >Join</a>
+            </div>
+            <div class="forgot_pw">
+                <a href="password" >Forgot Password?</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
