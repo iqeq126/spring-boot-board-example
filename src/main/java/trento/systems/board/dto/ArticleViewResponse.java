@@ -17,6 +17,7 @@ public class ArticleViewResponse {
   private String writer;
   private LocalDateTime createdAt;
   private int countView;
+  private int commentSize;
   public ArticleViewResponse(Article article) {
     this.id = article.getId();
     this.title = article.getTitle();
@@ -24,5 +25,6 @@ public class ArticleViewResponse {
     this.writer = article.getWriter();
     this.createdAt = article.getCreatedAt();
     this.countView = article.getCountView();
+    this.commentSize = article.getCountComment();
   }
 }

@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <th:block th:replace="/layout/fragment/header :: headerLayout"></th:block>
-<script type="text/javascript" th:src="@{/js/dragAndDrop.js}"></script>
+<!--<script type="text/javascript" th:src="@{/js/dragAndDrop.js}"></script>
+  <link th:href="@{/css/dragAndDrop.css}" rel="stylesheet" />-->
 <script type="text/javascript" th:src="@{/js/comment.js}"></script>
-  <link th:href="@{/css/dragAndDrop.css}" rel="stylesheet" />
+<script src="/js/article.js"></script>
 <body>
   <div class="container mt-5">
     <div class="row">
@@ -59,7 +60,7 @@
         </div>
         <!-- Display Comments -->
         <div class="card my-4" th:if="${comments.size()} > 0">
-          <h5 class="card-header">Comments:</h5>
+          <h5 class="card-header" th:text="|Comments : ${comments.size()}|">Comments:</h5>
           <div class="card-body">
             <div th:each="comment : ${comments}">
               <div class="media mb-4">
@@ -69,7 +70,7 @@
                   <small class="text-muted" th:text="${#temporals.format(comment.createdAt, 'yyyy-MM-dd HH:mm')}">Comment Date</small>
                   <div th:if="${comment.commentWriter == #authentication.name}">
                   <button class="btn btn-sm btn-outline-warning" th:attr="data-id=${comment.getId()}" onclick="editComment(this)">Edit</button>
-                    <a th:href="@{/articles/{id}/comment/{commentId}/remove(id=${id}, commentId=${article.getId()})}" class="btn btn-sm btn-outline-danger" onclick="return confirm('Delete this comment?')">Delete</a>
+                    <a th:href="@{/articles/{id}/comment/{commentId}/remove(id=${id}, commentId=${comment.getId()})}" class="btn btn-sm btn-outline-danger" onclick="return confirm('Delete this comment?')">Delete</a>
                   </div>
                 </div>
               </div>
@@ -86,7 +87,4 @@
       </div>
     </div>
   </div>
-
-
-  <script src="/js/article.js"></script>
 </body>

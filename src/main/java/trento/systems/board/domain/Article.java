@@ -37,6 +37,10 @@ public class Article{
     @Column(name="count_view", columnDefinition = "integer default 0", nullable = false)
     private int countView; /*조회수*/
 
+    @Column(name="count_comment", columnDefinition = "integer default 0", nullable = false)
+    private int countComment; /*댓글수*/
+
+
     @Column(name = "content", nullable = false, length = 1500)
     private String content;
 

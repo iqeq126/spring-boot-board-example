@@ -16,6 +16,7 @@ import trento.systems.board.dto.UpdateArticleRequest;
 import trento.systems.board.repository.BlogRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import trento.systems.board.repository.CommentRepository;
 import trento.systems.board.user.User;
 import trento.systems.board.user.UserRepository;
 
@@ -30,6 +31,7 @@ import java.util.UUID;
 public class BlogService {
 
     private final BlogRepository blogRepository;
+    private final CommentRepository commentRepository;
     private final UserRepository userRepository;
 
     @Transactional
@@ -63,7 +65,6 @@ public class BlogService {
 
     public Article getViewCount(long id){
         Optional<Article> article = blogRepository.findById(id);
-
         if(article.isPresent()){
             //조회수
             Article article1 = article.get();
@@ -71,6 +72,18 @@ public class BlogService {
             blogRepository.save(article1);
             return article1;
             //조회수끝
+        }else{
+            throw new NotFoundException("article not found");
+        }
+    }
+
+    public Article getCommentCount(long id){
+        Optional<Article> article = blogRepository.findById(id);
+        if(article.isPresent()){
+            Article article1 = article.get();
+            article1.setCountComment(commentRepository.findByArticle(article1).size());
+            blogRepository.save(article1);
+            return article1;
         }else{
             throw new NotFoundException("article not found");
         }

@@ -37,7 +37,6 @@ public class BlogViewController {
         model.addAttribute("articles", articles);
         Page<Article> articlePage = blogService.findPaginated(PageRequest.of(page, size));
         model.addAttribute("articlePage", articlePage);
-
         return "articleList";
     }
 
@@ -45,6 +44,7 @@ public class BlogViewController {
     public String getArticle(@PathVariable Long id, Model model) {
         Article article = blogService.findById(id);
         blogService.getViewCount(id);
+        blogService.getCommentCount(id);
         List<CommentResponse> comments = commentService.commentList(id);
         model.addAttribute("article", new ArticleViewResponse(article));
         model.addAttribute("comments", comments);

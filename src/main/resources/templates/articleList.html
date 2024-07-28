@@ -45,6 +45,7 @@
                 <p class="card-text" th:text="|내용 ${item.content}|"></p>
                 <p class="card-text" th:text="|작성자 ${item.writer}|"></p>
                 <p class="card-text" th:text="|조회수 ${item.countView}|"></p>
+                <p class="card-text" th:text="|댓글수 ${item.countComment}|"></p>
                 <a th:href="@{/articles/{id}(id=${item.id})}" class="btn btn-primary">보러가기</a>
             </div>
         </div>

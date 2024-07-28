@@ -84,7 +84,7 @@ public class CommentController {
      */
     @ResponseBody
     // @PostMapping("/articles/{id}/comment/{commentId}/update")
-    @RequestMapping(value = "/articles/{id}/comment/{commentId}/update", method = RequestMethod.POST)
+    @PutMapping(value = "/articles/{id}/comment/{commentId}/update")
     public String updateComment(@PathVariable Long id, @PathVariable Long commentId, @RequestBody CommentRequest commentRequest) {
         commentService.updateComment(commentRequest, commentId);
         return "/articles/" + id;
