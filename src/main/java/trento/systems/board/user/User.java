@@ -1,10 +1,7 @@
 package trento.systems.board.user;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,6 +13,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
+@AllArgsConstructor
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,6 +53,8 @@ public class User implements UserDetails {
         return password;
     }
 
+
+
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -73,5 +73,12 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public void updatePassword(String password) {
+        this.password = password;
+    }
+    public void updateUsername(String username) {
+        this.username = username;
     }
 }

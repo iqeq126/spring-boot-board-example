@@ -65,8 +65,11 @@
             </li>
         </ul>
     </nav>
+    <button type="button" class="btn btn-secondary mb-3"
+            th:onclick="|location.href='@{/mypage(username=${#authentication.name})}'|">마이페이지</button>
     <button type="button" class="btn btn-secondary" onclick="location.href='/logout'">로그아웃</button>
 </div>
 
 <script src="/js/article.js"></script>
 </body>
+</html>

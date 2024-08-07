@@ -36,9 +36,9 @@ spring:
     database-platform: org.hibernate.dialect.MySQLDialect
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://${common.local-ip}:3306/board_db
-    username: uuuuuuu
-    password: uuuuuuu
+    url: jdbc:mariadb://${common.global-ip}:3306/HAM_DB
+    username: daejeonbread
+    password: Koreatech2024!@
   # h2:
   #  console:
   #    enabled: true
@@ -53,3 +53,4 @@ spring:
 
 common:
   local-ip: localhost
+  global-ip: 158.180.87.21

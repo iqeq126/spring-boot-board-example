@@ -28,10 +28,30 @@ public class UserService {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("Unexpected user"));
     }
-    /*
-    public User findByUsername(String username){
-        return userRepository.findByUsername(username);
-    }*/
 
+    public UserDTO findByUsername(String username) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new IllegalArgumentException("Unexpected user"));
+
+        return UserDTO.builder()
+                .user(user)
+                .build();
+    }
+
+    public String updateUsername(UsernameUpdateDTO userDTO) {
+        User user = userRepository.findByUsername(userDTO.getCurrentUsername())
+                .orElseThrow(() -> new IllegalArgumentException("Unexpected user"));
+        user.updateUsername(userDTO.getNewUsername());
+        userRepository.save(user);
+        return user.getUsername();
+    }
+
+    public String updatePassword(UserPasswordUpdateDTO userDTO, String username) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new IllegalArgumentException("Unexpected user"));
+        user.updatePassword(bCryptPasswordEncoder.encode(userDTO.getNewPassword()));
+        userRepository.save(user);
+        return user.getUsername();
+    }
 
 }
