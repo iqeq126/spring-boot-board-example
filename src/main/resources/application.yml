@@ -21,6 +21,14 @@ spring:
     hidden-method:
       filter:
         enabled: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: 
+    password:
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
   #JPA
   jpa:
     show-sql: false #true는 Log에 sql내역 디버깅
@@ -37,8 +45,8 @@ spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
     url: jdbc:mariadb://${common.global-ip}:3306/HAM_DB
-    username: daejeonbread
-    password: Koreatech2024!@
+    username:
+    password:
   # h2:
   #  console:
   #    enabled: true

@@ -32,7 +32,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((authz) -> authz
-                        .requestMatchers("/login", "/join", "/user").permitAll()
+                        .requestMatchers("/login", "/join", "/user", "/findPassword").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
@@ -43,7 +43,9 @@ public class WebSecurityConfig {
                         .logoutSuccessUrl("/login")
                         .invalidateHttpSession(true)
                 )
-                .csrf(AbstractHttpConfigurer::disable); // Explicitly disable CSRF
+                .csrf((csrf) -> csrf
+                        .ignoringRequestMatchers("/h2-console/**", "/api/**")
+                );
 
         return http.build();
     }

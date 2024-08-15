@@ -1,12 +1,14 @@
 package trento.systems.board.user;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -71,5 +73,25 @@ public class UserViewController {
         return "redirect:/mypage?username=" + userDetails.getUsername();
 
     }
+
+
+    @GetMapping("/findPassword")
+    public String showFindPasswordPage() {
+        return "findPassword";
+    }
+    @PostMapping("/findPassword")
+    public String findPassword(@RequestParam("username") String username,
+                               @RequestParam("email") String email,
+                               Model model) {
+        try {
+            String status = userService.findPw(new findPwRequestDTO(username, email));
+            model.addAttribute("message", "Temporary password has been sent to your email.");
+            return "login"; // 임시 비밀번호를 이메일로 전송한 후 로그인 페이지로 리디렉션
+        } catch (Exception e) {
+            model.addAttribute("error", e.getMessage());
+            return "findPassword"; // 오류가 발생한 경우 다시 비밀번호 찾기 페이지로 리디렉션
+        }
+    }
+
 
 }
